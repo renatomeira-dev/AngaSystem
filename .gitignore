@@ -1,0 +1,18 @@
+# Build
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# VS Code
+.vscode/
+
+# Arquivos de compilação
+*.dll
+*.pdb
+*.cache
+
+# Outros
+*.log
+*.user
