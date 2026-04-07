@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using AngaSystem.API.Data;
+﻿using AngaSystem.API.Data;
+using AngaSystem.API.Helpers;
 using AngaSystem.API.Models;
-using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AngaSystem.API.Controllers
 {
@@ -38,6 +39,14 @@ namespace AngaSystem.API.Controllers
         [HttpPost]
         public async Task<ActionResult<Usuario>> Post(Usuario usuario)
         {
+            if (await _context.Usuarios.AnyAsync(x => x.Login == usuario.Login))
+                return BadRequest("Login já existe.");
+
+            if (await _context.Usuarios.AnyAsync(x => x.Email == usuario.Email))
+                return BadRequest("Email já cadastrado.");
+
+            usuario.Senha = CryptHelper.Crypt(CryptHelper.CryptProvider.TripleDES, usuario.Senha, "X'!8(-],:=9=$*].~)?5$,^62;`77@~>}$@ *$?%803{9/[|]30[^(99+3!@=@^_");
+
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
@@ -74,6 +83,27 @@ namespace AngaSystem.API.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
+        }
+
+        [HttpPost("login")]
+        public async Task<ActionResult> Login([FromBody] LoginDto dto)
+        {
+            var senhaCriptografada = CryptHelper.Crypt(CryptHelper.CryptProvider.TripleDES, dto.Senha, "X'!8(-],:=9=$*].~)?5$,^62;`77@~>}$@ *$?%803{9/[|]30[^(99+3!@=@^_");
+
+            var usuario = await _context.Usuarios.FirstOrDefaultAsync(x => x.Login == dto.Login && x.Senha == senhaCriptografada);
+
+            if (usuario == null)
+                return Unauthorized("Usuário ou senha inválidos");
+
+            var usuarioRetorno = new Usuario
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Login = usuario.Login,
+                Email = usuario.Email
+            };
+
+            return Ok(usuarioRetorno);
         }
     }
 }
