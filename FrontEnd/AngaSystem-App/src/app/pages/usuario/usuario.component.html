@@ -1,1 +1,18 @@
-<p>usuario works!</p>
+<div class="container">
+  <div class="card">
+
+    <h2>Bem-vindo</h2>
+
+    <p class="info">
+      Você está logado no sistema 🎉
+    </p>
+
+    <div class="user-info">
+      <p><strong>Nome:</strong> {{ nome }}</p>
+      <p><strong>Login:</strong> {{ login }}</p>
+    </div>
+
+    <button (click)="logout()">Sair</button>
+
+  </div>
+</div>

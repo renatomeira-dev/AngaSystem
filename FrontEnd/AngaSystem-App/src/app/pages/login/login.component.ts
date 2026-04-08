@@ -22,7 +22,9 @@ export class LoginComponent {
       .subscribe({
         next: (res) => {
           localStorage.setItem('token', res.token);
-          this.router.navigate(['/usuario']);
+          console.log('token', res.token);
+          console.log('teste: ', res);
+          this.router.navigate(['/index']);
         },
         error: () => {
           alert('Login ou senha inválido');

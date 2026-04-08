@@ -1,0 +1,44 @@
+.container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #4facfe, #00f2fe);
+}
+
+.card {
+  background: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  width: 320px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+h2 {
+  margin-bottom: 10px;
+}
+
+.info {
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.user-info {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #ff4d4f;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #d9363e;
+}

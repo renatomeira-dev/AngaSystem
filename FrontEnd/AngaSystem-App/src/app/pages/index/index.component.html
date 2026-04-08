@@ -1,0 +1,39 @@
+<div class="layout">
+
+  <!-- MENU LATERAL -->
+  <div class="sidebar" [class.closed]="isMenuOpen">
+
+    <div class="logo">
+      <span *ngIf="!isMenuOpen">AngaSystem</span>
+    </div>
+
+    <ul>
+      <li (click)="navigate('Usuario')"> 👤<span *ngIf="!isMenuOpen">Usuários</span></li>
+      <li (click)="navigate('fornecedores')">🏭 <span *ngIf="!isMenuOpen">Fornecedores</span></li>
+      <li (click)="navigate('clientes')">👥 <span *ngIf="!isMenuOpen">Clientes</span></li>
+    </ul>
+
+  </div>
+
+  <!-- CONTEÚDO -->
+  <div class="main">
+
+    <!-- HEADER -->
+    <div class="header">
+      <button (click)="toggleMenu()">☰</button>
+      <span>Painel</span>
+    </div>
+
+    <!-- CONTEÚDO DINÂMICO -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+    <!-- RODAPÉ -->
+    <div class="footer">
+      © 2026 - AngaSystem
+    </div>
+
+  </div>
+
+</div>

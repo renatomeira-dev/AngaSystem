@@ -62,6 +62,15 @@ namespace AngaSystem.API
                 };
             });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngular",
+                    builder => builder
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+            });
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>
@@ -84,6 +93,8 @@ namespace AngaSystem.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("AllowAngular");
 
             app.UseAuthentication();
             app.UseAuthorization();
